@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lk.blog.mapper.ArticleTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.lk.blog.model.ArticleType" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="article_type_name" property="articleTypeName" jdbcType="VARCHAR" />
+    <result column="article_type_descripiton" property="articleTypeDescripiton" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, article_type_name, article_type_descripiton, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from article_type
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.lk.blog.model.ArticleType" >
+    insert into article_type (id, article_type_name, article_type_descripiton, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{articleTypeName,jdbcType=VARCHAR}, #{articleTypeDescripiton,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lk.blog.model.ArticleType" >
+    insert into article_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="articleTypeName != null" >
+        article_type_name,
+      </if>
+      <if test="articleTypeDescripiton != null" >
+        article_type_descripiton,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="articleTypeName != null" >
+        #{articleTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="articleTypeDescripiton != null" >
+        #{articleTypeDescripiton,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lk.blog.model.ArticleType" >
+    update article_type
+    <set >
+      <if test="articleTypeName != null" >
+        article_type_name = #{articleTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="articleTypeDescripiton != null" >
+        article_type_descripiton = #{articleTypeDescripiton,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lk.blog.model.ArticleType" >
+    update article_type
+    set article_type_name = #{articleTypeName,jdbcType=VARCHAR},
+      article_type_descripiton = #{articleTypeDescripiton,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lk.blog.mapper.ArticlePageViewRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.lk.blog.model.ArticlePageViewRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="page_view_time" property="pageViewTime" jdbcType="TIMESTAMP" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, page_view_time, article_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from article_page_view_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.lk.blog.model.ArticlePageViewRecord" >
+    insert into article_page_view_record (id, page_view_time, article_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{pageViewTime,jdbcType=TIMESTAMP}, #{articleId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lk.blog.model.ArticlePageViewRecord" >
+    insert into article_page_view_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pageViewTime != null" >
+        page_view_time,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pageViewTime != null" >
+        #{pageViewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lk.blog.model.ArticlePageViewRecord" >
+    update article_page_view_record
+    <set >
+      <if test="pageViewTime != null" >
+        page_view_time = #{pageViewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleId != null" >
+        article_id = #{articleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lk.blog.model.ArticlePageViewRecord" >
+    update article_page_view_record
+    set page_view_time = #{pageViewTime,jdbcType=TIMESTAMP},
+      article_id = #{articleId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

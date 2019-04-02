@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lk.blog.mapper.ArticleCommontMapper" >
+  <resultMap id="BaseResultMap" type="com.lk.blog.model.ArticleCommont" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="commontor_id" property="commontorId" jdbcType="INTEGER" />
+    <result column="commont_time" property="commontTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lk.blog.model.ArticleCommont" extends="BaseResultMap" >
+    <result column="commont_content" property="commontContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, article_id, commontor_id, commont_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    commont_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article_commont
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.lk.blog.model.ArticleCommont" >
+    insert into article_commont (id, article_id, commontor_id, 
+      commont_time, update_time, commont_content
+      )
+    values (#{id,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{commontorId,jdbcType=INTEGER}, 
+      #{commontTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{commontContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lk.blog.model.ArticleCommont" >
+    insert into article_commont
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="commontorId != null" >
+        commontor_id,
+      </if>
+      <if test="commontTime != null" >
+        commont_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="commontContent != null" >
+        commont_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="commontorId != null" >
+        #{commontorId,jdbcType=INTEGER},
+      </if>
+      <if test="commontTime != null" >
+        #{commontTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commontContent != null" >
+        #{commontContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lk.blog.model.ArticleCommont" >
+    update article_commont
+    <set >
+      <if test="articleId != null" >
+        article_id = #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="commontorId != null" >
+        commontor_id = #{commontorId,jdbcType=INTEGER},
+      </if>
+      <if test="commontTime != null" >
+        commont_time = #{commontTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commontContent != null" >
+        commont_content = #{commontContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lk.blog.model.ArticleCommont" >
+    update article_commont
+    set article_id = #{articleId,jdbcType=INTEGER},
+      commontor_id = #{commontorId,jdbcType=INTEGER},
+      commont_time = #{commontTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      commont_content = #{commontContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lk.blog.model.ArticleCommont" >
+    update article_commont
+    set article_id = #{articleId,jdbcType=INTEGER},
+      commontor_id = #{commontorId,jdbcType=INTEGER},
+      commont_time = #{commontTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
